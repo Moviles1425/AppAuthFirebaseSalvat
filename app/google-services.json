@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "446904633227",
+    "project_id": "auth-cibertec-salvatierra",
+    "storage_bucket": "auth-cibertec-salvatierra.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446904633227:android:ce18be411b247ed07e518e",
+        "android_client_info": {
+          "package_name": "pe.edu.cibertec.appauthfirebasesalvat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFZ7RSF-t97_x1RmeXnwYws9s3S5Vu5Kc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

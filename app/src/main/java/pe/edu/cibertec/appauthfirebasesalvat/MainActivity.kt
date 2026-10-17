@@ -2,14 +2,17 @@ package pe.edu.cibertec.appauthfirebasesalvat
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
 import pe.edu.cibertec.appauthfirebasesalvat.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,6 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        auth = FirebaseAuth.getInstance()
         binding.btnLogin.setOnClickListener(this)
         binding.btnRegister.setOnClickListener(this)
     }
@@ -42,10 +46,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun registerUser(email: String, password: String) {
-
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this){ task->
+                if(task.isSuccessful){
+                    Toast.makeText(this,
+                        "¡Usuario creado correctamente",
+                        Toast.LENGTH_LONG).show()
+                }else{
+                    Toast.makeText(this,
+                        "¡Error! ${task.exception?.message}",
+                        Toast.LENGTH_LONG).show()
+                }
+            }
     }
 
     private fun loginUser(email: String, password: String) {
-
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this){ task->
+                if(task.isSuccessful){
+                    val user = auth.currentUser
+                    Toast.makeText(this,
+                        "¡Bienvenido! ${user?.email}",
+                        Toast.LENGTH_LONG).show()
+                }else{
+                    Toast.makeText(this,
+                        "¡Error! ${task.exception?.message}",
+                        Toast.LENGTH_LONG).show()
+                }
+            }
     }
 }
